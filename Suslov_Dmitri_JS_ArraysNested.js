@@ -1,5 +1,6 @@
 
 
+// Generates a random X/Y coordinate array from -50 to 50 example: [-32,5]
 function generateArray(arrayLength = 2, elemSize = 50, lengthMin = 2, elemMin = -50){
     let length = Math.floor((Math.random() * (arrayLength - lengthMin)) + lengthMin)
     var array= [];
@@ -10,9 +11,10 @@ function generateArray(arrayLength = 2, elemSize = 50, lengthMin = 2, elemMin = 
     return array;
 }  
 
-function generate2DCoords(arrayLength){
+// Generates a random array of arrays (a 2D array), with a parameter that takes a number argument for the maximum length of the 2D array. Minimum size of the array is 1.
+function generate2DCoords(arrayMaxLength){
     let arr = [];
-    let length = Math.floor(Math.random() * arrayLength + 1);
+    let length = Math.floor(Math.random() * arrayMaxLength + 1);
     for(let i = 0; i<length; i++){
         arr.push(generateArray());
     }
@@ -20,19 +22,20 @@ function generate2DCoords(arrayLength){
     return arr;
 }
 
+// Sorts the coordinates of a 2D array. Takes 2 parameters, the 2D array and a string literal argument for the coordinates of either x or y. Defaults to y if its anything but 'x'.
 function sortCoords(array, coordXOrY){
     let coordinate = coordXOrY == "x" ? 0 : 1;
     if(array.length == 1){ return [array[0][coordinate]];}
     
     let sortedArray = [];
-    let temp = array[0][coordinate];
+    let temp = 0;
 
     for(let i = 0; i<array.length-1; i++){
         if (array[i][coordinate] > array[i+1][coordinate]){
             temp = array[i+1][coordinate];
             array[i+1][coordinate] = array[i][coordinate];
             array[i][coordinate] = temp;
-            i = -1; //Resets the for-loop, its -1 because it iterates again after this if-statement making it 0 again
+            i = -1; //Resets the for-loop, its -1 because it iterates again after this if-statement, making it 0 again
         }
     }
     for(let i = 0; i<array.length; i++){
@@ -42,25 +45,29 @@ function sortCoords(array, coordXOrY){
     return sortedArray;
 }
 
+// Finds the optimal spot for the Taco Truck by sorting both the x and y coordinates of the customer, then finding the median of both. The final coordinate is the result.
 function optimalSpot(arr){
-    finalCoords = [];   
+    finalCoords = [];
+    // Quick test to see if there is only 1 array in the 2D array
     if(arr.length == 1){
         finalCoords.push(arr[0][0],arr[0][1]);
         return finalCoords;
     }
 
-    //Even amount of Coordinates or Odd?
+    // Are there an even amount of Coordinates in the array or Odd?
     evenNotOdd = arr.length % 2 == 0 ? true : false;
     xCoords = sortCoords(arr, "x");
     yCoords = sortCoords(arr, "y");
     
-    //Finding the Median
+    //Finding the Median, [0] and [1] are X and Y respectably.
     if(evenNotOdd){
+        // If its an even amount of coordinates, we find the middle 2 coordinates, add the values together, then divide them by 2.
         finalCoords[0] = (xCoords[(arr.length/2)-1] + xCoords[arr.length/2])/2;
         finalCoords[1] = (yCoords[(arr.length/2)-1] + yCoords[arr.length/2])/2;
     }else{
-        finalCoords[0] = xCoords[Math.ceil((arr.length/2)-1)];
-        finalCoords[1] = yCoords[Math.ceil((arr.length/2)-1)];
+        // If its an odd amount of coords, we find the middle by dividing the length of the array by 2, then flooring the result to get the correct index and its value.
+        finalCoords[0] = xCoords[Math.floor(arr.length/2)];
+        finalCoords[1] = yCoords[Math.floor(arr.length/2)];
     }
 
     return finalCoords;
