@@ -3,15 +3,56 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Dictionary Entry</title>
+        <title>Registration Form</title>
     </head>
     <body>
-        <h1>ninja</h1>
-        <img src="html_images\pronunciation.png" alt="ninja pronunciation" >
-        <h3><em>noun</em></h3>
-        <ol>
-            <li>A practitioner skilled in the Japanese art of ninjutsu</li>
-            <li>A programmer who breaks down problems with zen-like focus</li>
-        </ol>
+        <form action="/process" method="post">
+            <h1>Registration Form</h1>
+            <label for="firstname">First Name:*</label>
+            <input type="text" name="FirstName" id="firstname">
+            <br><br>
+            <label for="lastname">Last Name:*</label>
+            <input type="text" name="LastName" id="lastname">
+            <br><br>
+            <label for="email">Email Address:*</label>
+            <input type="text" name="Email" id="email">
+            <br><br>
+            <label for="pass">Password:*</label>
+            <input type="password" name="Password" id="pass">
+            <br><br>
+            <label for="passconfirm">Confirm Password:*</label>
+            <input type="password" name="PassConfirm" id="passconfirm">
+            <br><br>
+            <label for="birthday">Birthday: </label>
+            <input type="date" name="Birthday" id="birthday">
+            <br>
+            <p>Gender Identity:</p> 
+            <input type="radio" name="gender" value="male" id="male">
+            <label for="male">Male</label>
+            <input type="radio" name="gender" value="female" id="female">
+            <label for="female">Female</label>
+            <input type="radio" name="gender" value="nonBinary" id="nonbin">
+            <label for="nonbin">Non-Binary</label>
+            <input type="radio" name="gender" value="noAnswer" id="noanswer">
+            <label for="noanswer">I prefer not to answer</label>
+            <br>
+            <p>A short description about myself:</p>
+            <textarea name="desc" cols="55" rows="5"></textarea>
+            <br><br>
+            <label for="noanswer">Favorite Language:</label>
+            <select name="favLang">
+                <option value="Javascript">Javascript</option>
+                <option value="Java">Java</option>
+                <option value="Python">Python</option>
+                <option value="C#">C#</option>
+                <option value="C++">C++</option>
+            </select>
+            <br><br>
+            <input type="checkbox" name="emailAgreement" id="agreement">
+            <label for="agreement">Yes, I would like to receive periodic email updates</label>
+            <br><br>
+            <input type="submit" name="createaccount" value="Create Account">
+            <p>* Indicates a required field</p>
+        </form>
     </body>
 </html>
