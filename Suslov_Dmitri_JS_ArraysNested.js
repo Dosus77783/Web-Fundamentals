@@ -24,20 +24,26 @@ function generate2DCoords(arrayMaxLength){
 
 // Sorts the coordinates of a 2D array. Takes 2 parameters, the 2D array and a string literal argument for the coordinates of either x or y. Defaults to y if its anything but 'x'.
 function sortCoords(array, coordXOrY){
-    let coordinate = coordXOrY == "x" ? 0 : 1;
+    const coordinate = coordXOrY == "x" ? 0 : 1;
     if(array.length == 1){ return [array[0][coordinate]];}
     
     let sortedArray = [];
     let temp = 0;
+    let repeat = false;
 
-    for(let i = 0; i<array.length-1; i++){
-        if (array[i][coordinate] > array[i+1][coordinate]){
-            temp = array[i+1][coordinate];
-            array[i+1][coordinate] = array[i][coordinate];
-            array[i][coordinate] = temp;
-            i = -1; //Resets the for-loop, its -1 because it iterates again after this if-statement, making it 0 again
+    do {
+        repeat = false;
+        for(let i = 0; i<array.length-1; i++){
+            if (array[i][coordinate] > array[i+1][coordinate]){
+                temp = array[i+1][coordinate];
+                array[i+1][coordinate] = array[i][coordinate];
+                array[i][coordinate] = temp;
+                repeat = true;
+            }
         }
     }
+    while(repeat)
+
     for(let i = 0; i<array.length; i++){
         sortedArray[i] = array[i][coordinate];
     }
